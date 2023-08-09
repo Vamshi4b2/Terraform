@@ -3,12 +3,12 @@
 
 
 provider "aws" {
-  region  = "us-east-1"
+  region  = var.region
   profile = "abhioct18"
 }
 
 resource "aws_vpc" "TF-VPC-1" {
-  cidr_block           = "10.99.0.0/16"
+  cidr_block           = var.vpc_cidr_block
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
 #  enable_classiclink   = "false"
@@ -20,7 +20,7 @@ resource "aws_vpc" "TF-VPC-1" {
 }
 resource "aws_subnet" "TF-Sub-1a" {
   vpc_id                  = aws_vpc.TF-VPC-1.id
-  cidr_block              = "10.99.1.0/24"
+  cidr_block              = var.sub_1a_cidr_block
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
   tags = {
@@ -30,7 +30,7 @@ resource "aws_subnet" "TF-Sub-1a" {
 
 resource "aws_subnet" "TF-Sub-1b" {
   vpc_id                  = aws_vpc.TF-VPC-1.id
-  cidr_block              = "10.99.2.0/24"
+  cidr_block              = var.sub_1b_cidr_block
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1b"
   tags = {
